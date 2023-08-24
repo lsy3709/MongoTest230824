@@ -36,5 +36,5 @@ db.users.insertMany([
     등록일: new Date(),
   },
 ]);
-
+//id, password 빼기
 db.users.find({}, { _id: 0, password: 0 });
