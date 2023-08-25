@@ -79,6 +79,7 @@ db.stores.insertMany([
   { _id: 4, name: "Clothes Clothes Clothes", description: "Discount clothing" },
   { _id: 5, name: "Java Shopping", description: "Indonesian goods" },
 ]);
+db.stores.find();
 //Text index -> 4장 인덱스
 db.stores.createIndex({ name: "text", description: "text" });
 //$text Operation -> 문자열 검색
