@@ -11,7 +11,7 @@ db.local.aggregate([
         $group: {
             _id: "$city_or_province",
             expense_avg: {
-                $max: "$this_term_expense"
+                $max: "$former_expense"
             }
         }
 
