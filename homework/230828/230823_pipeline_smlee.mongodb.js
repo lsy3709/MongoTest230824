@@ -77,7 +77,7 @@ db.city_or_province.aggregate([
 ])
 
 
-//예제2 local db의 자치구별 지출항목별 비용 검색
+//예제2 local db의 자치구별 지출항목별 비용 샘플 10개
 db.local.aggregate([
     {
         $sort: { this_term_expense: -1 }
