@@ -39,3 +39,28 @@ db.local.aggregate([
     },
   },
 ]);
+
+//1번 문제
+db.city_or_province.aggregate([
+  {
+    $facet: {
+      by_city_or_province: [
+        {
+          $group: {
+            _id: "$city_or_province",
+            sum_expenses: { $sum: "$this_term_expense" },
+          },
+        },
+      ],
+      by_sub_category: [
+        {
+          $group: {
+            _id: "$sub_category",
+            main_category: { $first: "$main_category" },
+            sum_expenses: { $sum: "$this_term_expense" },
+          },
+        },
+      ],
+    },
+  },
+]);
