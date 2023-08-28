@@ -22,3 +22,22 @@ db.local.aggregate([
         }
     },
 ])
+
+// 서울시의 자치구별 인구수를 내림차순으로 검색하기
+db.population.aggregate([
+    {
+        $match:
+            { city_or_province: "서울" }
+    },
+    {
+        $group: {
+            _id: "$local_government",
+            인구수: { $avg: "$population" }
+        }
+    },
+    {
+        $sort: {
+            인구수: -1
+        }
+    },
+])
