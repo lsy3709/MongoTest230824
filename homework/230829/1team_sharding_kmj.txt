@@ -1,17 +1,52 @@
-Windows PowerShell
-Copyright (C) Microsoft Corporation. All rights reserved.
+0. 팀원별 설정
+rs.initiate(
+{
+_id : "config0",
+configsvr:true,
+members: [
+{_id:0, host:"10.100.103.22:16080"},
+{_id:1, host:"10.100.103.74:16081"},
+{_id:2, host:"10.100.103.39:16082"},
+{_id:3, host:"10.100.103.33:16083"}
+]
+}
+)
 
-새로운 크로스 플랫폼 PowerShell 사용 https://aka.ms/pscore6
+mongod --configsvr --replSet config0 --port 16081 --bind_ip 0.0.0.0 --dbpath /first_db/data2/config0-0
+mongod --configsvr --replSet config0 --port 16082 --bind_ip 0.0.0.0 --dbpath /first_db/data2/config0-0
+mongod --configsvr --replSet config0 --port 16083 --bind_ip 0.0.0.0 --dbpath /first_db/data2/config0-0
 
-PS C:\Users\it> mongo --port 15000
+mkdir c:\first_db\data2\shard0-0
+mongod --shardsvr --replSet shard0 --port 17081 --bind_ip 0.0.0.0 --dbpath /first_db/data2/shard0-0
+mongod --shardsvr --replSet shard0 --port 17082 --bind_ip 0.0.0.0 --dbpath /first_db/data2/shard0-0
+mongod --shardsvr --replSet shard0 --port 17083 --bind_ip 0.0.0.0 --dbpath /first_db/data2/shard0-0
+
+rs.initiate(
+{
+_id : "shard0",
+members: [
+{_id:0, host:"10.100.103.22:17080"},
+{_id:1, host:"10.100.103.74:17081"},
+{_id:2, host:"10.100.103.39:17082",arbiterOnly: true},
+{_id:3, host:"10.100.103.33:17083"}
+]
+}
+)
+
+mongos --configdb config0/10.100.103.74:16081 --port 15000
+mongos --configdb config0/10.100.103.39:16082 --port 15000
+mongos --configdb config0/10.100.103.33:16083 --port 15000
+
+1. db 확인
+PS C:\Users\Jinho> mongo --port 15000
 MongoDB shell version v4.4.24
 connecting to: mongodb://127.0.0.1:15000/?compressors=disabled&gssapiServiceName=mongodb
-Implicit session: session { "id" : UUID("5f0f1759-769b-4731-b323-7a7b382d5d9e") }
+Implicit session: session { "id" : UUID("bbfd031f-d006-46e0-89db-38ad47180436") }
 MongoDB server version: 4.4.24
 ---
 The server generated these startup warnings when booting:
-        2023-08-29T16:40:23.758+09:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
-        2023-08-29T16:40:23.758+09:00: This server is bound to localhost. Remote systems will be unable to connect to this server. Start the server with --bind_ip <address> to specify which IP addresses it should serve responses from, or with --bind_ip_all to bind to all interfaces. If this behavior is desired, start the server with --bind_ip 127.0.0.1 to disable this warning
+        2023-08-29T16:27:43.664+09:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+        2023-08-29T16:27:43.665+09:00: This server is bound to localhost. Remote systems will be unable to connect to this server. Start the server with --bind_ip <address> to specify which IP addresses it should serve responses from, or with --bind_ip_all to bind to all interfaces. If this behavior is desired, start the server with --bind_ip 127.0.0.1 to disable this warning
 ---
 mongos> use car_accident
 switched to db car_accident
@@ -37,4 +72,3 @@ mongos> db.area.find()
 { "_id" : ObjectId("5c88f9f70da47a8507752787"), "city_or_province" : "서울", "county" : "서초구", "population" : 447192 }
 { "_id" : ObjectId("5c88f9f70da47a8507752788"), "city_or_province" : "서울", "county" : "양천구", "population" : 477739 }
 Type "it" for more
-mongos>
