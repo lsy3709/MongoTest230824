@@ -1,0 +1,13 @@
+rs0:PRIMARY> db.firsttest.find()
+{ "_id" : ObjectId("64ed63d98b28e4a9ce29376b"), "hello" : "world" }
+{ "_id" : ObjectId("64ed63e18b28e4a9ce29376c"), "nice" : "try" }
+{ "_id" : ObjectId("64ed63e78b28e4a9ce29376d"), "good" : "job" }
+{ "_id" : ObjectId("64ed63ee8b28e4a9ce29376e"), "bye" : "bye" }
+{ "_id" : ObjectId("64ed63f68b28e4a9ce29376f"), "night" : "core" }
+
+rs0:SECONDARY> db.firsttest.find()
+{ "_id" : ObjectId("64ed63d98b28e4a9ce29376b"), "hello" : "world" }
+{ "_id" : ObjectId("64ed63e18b28e4a9ce29376c"), "nice" : "try" }
+{ "_id" : ObjectId("64ed63e78b28e4a9ce29376d"), "good" : "job" }
+{ "_id" : ObjectId("64ed63ee8b28e4a9ce29376e"), "bye" : "bye" }
+{ "_id" : ObjectId("64ed63f68b28e4a9ce29376f"), "night" : "core" }
