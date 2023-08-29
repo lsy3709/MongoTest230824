@@ -1,0 +1,23 @@
+#rs0-1폴더 생성후 이 PC는 27019 포트 사용하겠다 선언 (SECONDARY)
+C:\Users\it> mongod --replSet rs0 --port 27019 --bind_ip 0.0.0.0 --dbpath /db/data/rs0-1
+
+
+서버 연결 후
+
+
+#포트 불러오기
+C:\Users\it> mongo --port 27019 
+
+
+#SECONDARY에서 접근할수 있도록 slaveOk 선언
+rs0:SECONDARY> rs.slaveOk()
+
+
+#PRIMARY에서 추가한 데이터 조회
+rs0:SECONDARY> db.twoteam_data.find()
+{ "_id" : ObjectId("64ed76c54f7988a6fb9af092"), "hello" : "world" }
+{ "_id" : ObjectId("64ed76f04f7988a6fb9af093"), "hello" : "world2" }
+{ "_id" : ObjectId("64ed76f34f7988a6fb9af094"), "hello" : "world3" }
+{ "_id" : ObjectId("64ed76f54f7988a6fb9af095"), "hello" : "world4" }
+{ "_id" : ObjectId("64ed76f84f7988a6fb9af096"), "hello" : "world5" }
+{ "_id" : ObjectId("64ed76fa4f7988a6fb9af097"), "hello" : "world6" }
