@@ -1,0 +1,42 @@
+데이터 입력
+rs0:PRIMARY> db.twoteam_data.insertOne({hello: 'world'})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("64ed76c54f7988a6fb9af092")
+}
+rs0:PRIMARY> db.twoteam_data.find()
+{ "_id" : ObjectId("64ed76c54f7988a6fb9af092"), "hello" : "world" }
+rs0:PRIMARY> db.twoteam_data.insertOne({hello: 'world2'})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("64ed76f04f7988a6fb9af093")
+}
+rs0:PRIMARY> db.twoteam_data.insertOne({hello: 'world3'})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("64ed76f34f7988a6fb9af094")
+}
+rs0:PRIMARY> db.twoteam_data.insertOne({hello: 'world4'})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("64ed76f54f7988a6fb9af095")
+}
+rs0:PRIMARY> db.twoteam_data.insertOne({hello: 'world5'})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("64ed76f84f7988a6fb9af096")
+}
+rs0:PRIMARY> db.twoteam_data.insertOne({hello: 'world6'})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("64ed76fa4f7988a6fb9af097")
+}
+
+데이터 출력
+rs0:PRIMARY> db.twoteam_data.find()
+{ "_id" : ObjectId("64ed76c54f7988a6fb9af092"), "hello" : "world" }
+{ "_id" : ObjectId("64ed76f04f7988a6fb9af093"), "hello" : "world2" }
+{ "_id" : ObjectId("64ed76f34f7988a6fb9af094"), "hello" : "world3" }
+{ "_id" : ObjectId("64ed76f54f7988a6fb9af095"), "hello" : "world4" }
+{ "_id" : ObjectId("64ed76f84f7988a6fb9af096"), "hello" : "world5" }
+{ "_id" : ObjectId("64ed76fa4f7988a6fb9af097"), "hello" : "world6" }
