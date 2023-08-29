@@ -1,0 +1,40 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+새로운 크로스 플랫폼 PowerShell 사용 https://aka.ms/pscore6
+
+PS C:\Users\it> mongo --port 15000
+MongoDB shell version v4.4.24
+connecting to: mongodb://127.0.0.1:15000/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("5f0f1759-769b-4731-b323-7a7b382d5d9e") }
+MongoDB server version: 4.4.24
+---
+The server generated these startup warnings when booting:
+        2023-08-29T16:40:23.758+09:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+        2023-08-29T16:40:23.758+09:00: This server is bound to localhost. Remote systems will be unable to connect to this server. Start the server with --bind_ip <address> to specify which IP addresses it should serve responses from, or with --bind_ip_all to bind to all interfaces. If this behavior is desired, start the server with --bind_ip 127.0.0.1 to disable this warning
+---
+mongos> use car_accident
+switched to db car_accident
+mongos> db.area.find()
+{ "_id" : ObjectId("5c88f9f70da47a8507752775"), "city_or_province" : "서울", "county" : "종로구", "population" : 152737 }
+{ "_id" : ObjectId("5c88f9f70da47a8507752776"), "city_or_province" : "서울", "county" : "중구", "population" : 125249 }
+{ "_id" : ObjectId("5c88f9f70da47a8507752777"), "city_or_province" : "서울", "county" : "용산구", "population" : 230241 }
+{ "_id" : ObjectId("5c88f9f70da47a8507752778"), "city_or_province" : "서울", "county" : "성동구", "population" : 299259 }
+{ "_id" : ObjectId("5c88f9f70da47a8507752779"), "city_or_province" : "서울", "county" : "동대문구", "population" : 355069 }
+{ "_id" : ObjectId("5c88f9f70da47a850775277a"), "city_or_province" : "서울", "county" : "성북구", "population" : 450355 }
+{ "_id" : ObjectId("5c88f9f70da47a850775277b"), "city_or_province" : "서울", "county" : "도봉구", "population" : 348220 }
+{ "_id" : ObjectId("5c88f9f70da47a850775277c"), "city_or_province" : "서울", "county" : "은평구", "population" : 491476 }
+{ "_id" : ObjectId("5c88f9f70da47a850775277d"), "city_or_province" : "서울", "county" : "서대문구", "population" : 314194 }
+{ "_id" : ObjectId("5c88f9f70da47a850775277e"), "city_or_province" : "서울", "county" : "마포구", "population" : 379892 }
+{ "_id" : ObjectId("5c88f9f70da47a850775277f"), "city_or_province" : "서울", "county" : "강서구", "population" : 595485 }
+{ "_id" : ObjectId("5c88f9f70da47a8507752780"), "city_or_province" : "서울", "county" : "구로구", "population" : 417551 }
+{ "_id" : ObjectId("5c88f9f70da47a8507752781"), "city_or_province" : "서울", "county" : "영등포구", "population" : 370613 }
+{ "_id" : ObjectId("5c88f9f70da47a8507752782"), "city_or_province" : "서울", "county" : "동작구", "population" : 400997 }
+{ "_id" : ObjectId("5c88f9f70da47a8507752783"), "city_or_province" : "서울", "county" : "관악구", "population" : 506851 }
+{ "_id" : ObjectId("5c88f9f70da47a8507752784"), "city_or_province" : "서울", "county" : "강남구", "population" : 567115 }
+{ "_id" : ObjectId("5c88f9f70da47a8507752785"), "city_or_province" : "서울", "county" : "강동구", "population" : 444168 }
+{ "_id" : ObjectId("5c88f9f70da47a8507752786"), "city_or_province" : "서울", "county" : "송파구", "population" : 657831 }
+{ "_id" : ObjectId("5c88f9f70da47a8507752787"), "city_or_province" : "서울", "county" : "서초구", "population" : 447192 }
+{ "_id" : ObjectId("5c88f9f70da47a8507752788"), "city_or_province" : "서울", "county" : "양천구", "population" : 477739 }
+Type "it" for more
+mongos>
