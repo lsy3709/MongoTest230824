@@ -1,0 +1,264 @@
+0. 멤버추가
+
+PS C:\Users\Jinho> mongo --port 15090
+MongoDB shell version v4.4.24
+connecting to: mongodb://127.0.0.1:15090/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("02552976-8c82-4c24-9fe3-b8a894265909") }
+MongoDB server version: 4.4.24
+---
+The server generated these startup warnings when booting:
+        2023-08-29T12:10:03.893+09:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+
+rs0:PRIMARY> rs.add("10.100.103.39:15091")
+{
+        "ok" : 1,
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1693279521, 1),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        },
+        "operationTime" : Timestamp(1693279521, 1)
+}
+
+rs0:PRIMARY> rs.add("10.100.103.74:15092")
+{
+        "ok" : 1,
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1693279538, 2),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        },
+        "operationTime" : Timestamp(1693279538, 2)
+}
+
+rs0:PRIMARY> rs.add("10.100.103.33:15093")
+{
+        "ok" : 1,
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1693279826, 1),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        },
+        "operationTime" : Timestamp(1693279826, 1)
+}
+
+rs0:PRIMARY> rs.status()
+{
+        "set" : "rs0",
+        "date" : ISODate("2023-08-29T03:30:33.094Z"),
+        "myState" : 1,
+        "term" : NumberLong(1),
+        "syncSourceHost" : "",
+        "syncSourceId" : -1,
+        "heartbeatIntervalMillis" : NumberLong(2000),
+        "majorityVoteCount" : 3,
+        "writeMajorityCount" : 3,
+        "votingMembersCount" : 4,
+        "writableVotingMembersCount" : 4,
+        "optimes" : {
+                "lastCommittedOpTime" : {
+                        "ts" : Timestamp(1693279826, 1),
+                        "t" : NumberLong(1)
+                },
+                "lastCommittedWallTime" : ISODate("2023-08-29T03:30:26.101Z"),
+                "readConcernMajorityOpTime" : {
+                        "ts" : Timestamp(1693279826, 1),
+                        "t" : NumberLong(1)
+                },
+                "readConcernMajorityWallTime" : ISODate("2023-08-29T03:30:26.101Z"),
+                "appliedOpTime" : {
+                        "ts" : Timestamp(1693279826, 1),
+                        "t" : NumberLong(1)
+                },
+                "durableOpTime" : {
+                        "ts" : Timestamp(1693279826, 1),
+                        "t" : NumberLong(1)
+                },
+                "lastAppliedWallTime" : ISODate("2023-08-29T03:30:26.101Z"),
+                "lastDurableWallTime" : ISODate("2023-08-29T03:30:26.101Z")
+        },
+        "lastStableRecoveryTimestamp" : Timestamp(1693279804, 1),
+        "electionCandidateMetrics" : {
+                "lastElectionReason" : "electionTimeout",
+                "lastElectionDate" : ISODate("2023-08-29T03:15:08.630Z"),
+                "electionTerm" : NumberLong(1),
+                "lastCommittedOpTimeAtElection" : {
+                        "ts" : Timestamp(0, 0),
+                        "t" : NumberLong(-1)
+                },
+                "lastSeenOpTimeAtElection" : {
+                        "ts" : Timestamp(1693278908, 1),
+                        "t" : NumberLong(-1)
+                },
+                "numVotesNeeded" : 1,
+                "priorityAtElection" : 1,
+                "electionTimeoutMillis" : NumberLong(10000),
+                "newTermStartDate" : ISODate("2023-08-29T03:15:08.672Z"),
+                "wMajorityWriteAvailabilityDate" : ISODate("2023-08-29T03:15:08.707Z")
+        },
+        "members" : [
+                {
+                        "_id" : 0,
+                        "name" : "10.100.103.22:15090",
+                        "health" : 1,
+                        "state" : 1,
+                        "stateStr" : "PRIMARY",
+                        "uptime" : 1231,
+                        "optime" : {
+                                "ts" : Timestamp(1693279826, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDate" : ISODate("2023-08-29T03:30:26Z"),
+                        "lastAppliedWallTime" : ISODate("2023-08-29T03:30:26.101Z"),
+                        "lastDurableWallTime" : ISODate("2023-08-29T03:30:26.101Z"),
+                        "syncSourceHost" : "",
+                        "syncSourceId" : -1,
+                        "infoMessage" : "",
+                        "electionTime" : Timestamp(1693278908, 2),
+                        "electionDate" : ISODate("2023-08-29T03:15:08Z"),
+                        "configVersion" : 4,
+                        "configTerm" : 1,
+                        "self" : true,
+                        "lastHeartbeatMessage" : ""
+                },
+                {
+                        "_id" : 1,
+                        "name" : "10.100.103.39:15091",
+                        "health" : 1,
+                        "state" : 2,
+                        "stateStr" : "SECONDARY",
+                        "uptime" : 311,
+                        "optime" : {
+                                "ts" : Timestamp(1693279826, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDurable" : {
+                                "ts" : Timestamp(1693279826, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDate" : ISODate("2023-08-29T03:30:26Z"),
+                        "optimeDurableDate" : ISODate("2023-08-29T03:30:26Z"),
+                        "lastAppliedWallTime" : ISODate("2023-08-29T03:30:26.101Z"),
+                        "lastDurableWallTime" : ISODate("2023-08-29T03:30:26.101Z"),
+                        "lastHeartbeat" : ISODate("2023-08-29T03:30:32.122Z"),
+                        "lastHeartbeatRecv" : ISODate("2023-08-29T03:30:32.184Z"),
+                        "pingMs" : NumberLong(1),
+                        "lastHeartbeatMessage" : "",
+                        "syncSourceHost" : "10.100.103.22:15090",
+                        "syncSourceId" : 0,
+                        "infoMessage" : "",
+                        "configVersion" : 4,
+                        "configTerm" : 1
+                },
+                {
+                        "_id" : 2,
+                        "name" : "10.100.103.74:15092",
+                        "health" : 1,
+                        "state" : 2,
+                        "stateStr" : "SECONDARY",
+                        "uptime" : 107,
+                        "optime" : {
+                                "ts" : Timestamp(1693279826, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDurable" : {
+                                "ts" : Timestamp(1693279826, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDate" : ISODate("2023-08-29T03:30:26Z"),
+                        "optimeDurableDate" : ISODate("2023-08-29T03:30:26Z"),
+                        "lastAppliedWallTime" : ISODate("2023-08-29T03:30:26.101Z"),
+                        "lastDurableWallTime" : ISODate("2023-08-29T03:30:26.101Z"),
+                        "lastHeartbeat" : ISODate("2023-08-29T03:30:32.122Z"),
+                        "lastHeartbeatRecv" : ISODate("2023-08-29T03:30:32.140Z"),
+                        "pingMs" : NumberLong(2),
+                        "lastHeartbeatMessage" : "",
+                        "syncSourceHost" : "10.100.103.39:15091",
+                        "syncSourceId" : 1,
+                        "infoMessage" : "",
+                        "configVersion" : 4,
+                        "configTerm" : 1
+                },
+                {
+                        "_id" : 3,
+                        "name" : "10.100.103.33:15093",
+                        "health" : 0,
+                        "state" : 8,
+                        "stateStr" : "(not reachable/healthy)",
+                        "uptime" : 0,
+                        "optime" : {
+                                "ts" : Timestamp(0, 0),
+                                "t" : NumberLong(-1)
+                        },
+                        "optimeDurable" : {
+                                "ts" : Timestamp(0, 0),
+                                "t" : NumberLong(-1)
+                        },
+                        "optimeDate" : ISODate("1970-01-01T00:00:00Z"),
+                        "optimeDurableDate" : ISODate("1970-01-01T00:00:00Z"),
+                        "lastAppliedWallTime" : ISODate("1970-01-01T00:00:00Z"),
+                        "lastDurableWallTime" : ISODate("1970-01-01T00:00:00Z"),
+                        "lastHeartbeat" : ISODate("2023-08-29T03:30:28.722Z"),
+                        "lastHeartbeatRecv" : ISODate("1970-01-01T00:00:00Z"),
+                        "pingMs" : NumberLong(0),
+                        "lastHeartbeatMessage" : "Error connecting to 10.100.103.33:15093 :: caused by :: ��� ��ǻ�Ϳ��� ������ �ź������Ƿ� �������� ���߽��ϴ�.",
+                        "syncSourceHost" : "",
+                        "syncSourceId" : -1,
+                        "infoMessage" : "",
+                        "configVersion" : -1,
+                        "configTerm" : -1
+                }
+        ],
+        "ok" : 1,
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1693279826, 1),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        },
+        "operationTime" : Timestamp(1693279826, 1)
+}
+
+1. first에서 데이터 추가
+
+rs0:PRIMARY> db.firsttest.insertOne({hello : "world"})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("64ed63d98b28e4a9ce29376b")
+}
+rs0:PRIMARY> db.firsttest.insertOne({nice : "try"})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("64ed63e18b28e4a9ce29376c")
+}
+rs0:PRIMARY> db.firsttest.insertOne({good : "job"})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("64ed63e78b28e4a9ce29376d")
+}
+rs0:PRIMARY> db.firsttest.insertOne({bye : "bye"})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("64ed63ee8b28e4a9ce29376e")
+}
+rs0:PRIMARY> db.firsttest.insertOne({night : "core"})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("64ed63f68b28e4a9ce29376f")
+}
+
+2. 데이터 접근
+rs0:PRIMARY> db.firsttest.find()
+{ "_id" : ObjectId("64ed63d98b28e4a9ce29376b"), "hello" : "world" }
+{ "_id" : ObjectId("64ed63e18b28e4a9ce29376c"), "nice" : "try" }
+{ "_id" : ObjectId("64ed63e78b28e4a9ce29376d"), "good" : "job" }
+{ "_id" : ObjectId("64ed63ee8b28e4a9ce29376e"), "bye" : "bye" }
+{ "_id" : ObjectId("64ed63f68b28e4a9ce29376f"), "night" : "core" }
