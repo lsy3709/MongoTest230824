@@ -1,0 +1,137 @@
+---- 두대의 컴퓨터는 포트만 열어주는 인바운드 규칙을 적용하였습니다
+
+-- 두대의 컴퓨터에 중 한대의 컴퓨터 포트 : 27018
+-- 나머지 한대에 포트를 두개를 열었습니다. 포트 : 27019/27020
+
+mkdir F:\yey\db\data\rs0-0    	: primary 
+mkdir d:\yey\db\data\rs0-1		: secondary
+mkdir d:\yey\db\data\rs0-2		: Arbiter
+
+mongod --replSet rs0 --port 27018 --bind_ip 0.0.0.0 --dbpath F:\yey\db\data\rs0-0
+mongod --replSet rs0 --port 27019 --bind_ip 0.0.0.0 --dbpath d:\yey\db\data\rs0-1
+mongod --replSet rs0 --port 27020 --bind_ip 0.0.0.0 --dbpath d:\yey\db\data\rs0-2
+
+
+DB ip ; 10.100.103.19   - 0829일자 매일 변경
+
+노트북 ip : 10.100.103.15
+
+mongod --replSet rs0 --port 27018 --bind_ip 10.100.103.19 --dbpath d:/yey/db/data/rs0-0
+mongod --replSet rs0 --port 27019 --bind_ip 10.100.103.15 --dbpath d:/yey/db/data/rs0-1
+mongod --replSet rs0 --port 27020 --bind_ip 10.100.103.15 --dbpath d:/yey/db/data/rs0-2
+
+mongod --replSet rs0 --port 27018 --bind_ip 10.100.103.19 --dbpath F:/yey/db/data/rs0-0
+
+mongod --replSet rs0 --port 27019 --bind_ip 0.0.0.0 --dbpath d:/yey/db/data/rs0-1
+mongod --replSet rs0 --port 27020 --bind_ip 0.0.0.0 --dbpath d:/yey/db/data/rs0-2
+
+rs.initiate(
+{
+_id : "rs0",
+members: [
+{_id:0, host:"10.100.103.19:27018"},
+{_id:1, host:"10.100.103.15:27019"}
+]
+}
+)
+
+rs.add({i_id:1, host:"10.100.103.19:27019"})
+
+
+
+------------------------------------------
+샤딩 중 복제서버
+
+-- 두대의 컴퓨터에 중 한대의 컴퓨터 포트 : 27018
+-- 나머지 한대에 포트를 두개를 열었습니다. 포트 : 27019/27020
+
+mkdir d:\yey\db2\data\config0-0
+mkdir d:\yey\db2\data\config0-1
+mkdir d:\yey\db2\data\config0-2
+
+
+mongod --configsvr --replSet config0 --port 27018 --bind_ip localhost --dbpath /db2/data/config0-0
+mongod --configsvr --replSet config0 --port 27019 --bind_ip localhost --dbpath /db2/data/config0-1
+mongod --configsvr --replSet config0 --port 27020 --bind_ip localhost --dbpath /db2/data/config0-2
+
+mongod --configsvr --replSet config0 --port 27018 --bind_ip 0.0.0.0 --dbpath d:\yey\db2\data\config0-0
+mongod --configsvr --replSet config0 --port 27019 --bind_ip localhost --dbpath /db2/data/config0-1
+mongod --configsvr --replSet config0 --port 27020 --bind_ip localhost --dbpath /db2/data/config0-2
+
+
+rs.initiate(
+{
+_id : "config0",
+configsvr:true,
+members: [
+{_id:0, host:"10.100.103.15:27018"},
+{_id:1, host:"10.100.103.19:27019"},
+{_id:2, host:"10.100.103.19:27020"}
+]
+}
+)
+
+
+===========================================
+샤드의 구성
+-- 두대의 컴퓨터에 중 한대의 컴퓨터 포트 : 27021
+-- 나머지 한대에 포트를 두개를 열었습니다. 포트 : 27022/27023
+
+
+mkdir d:\yey\db2\data\shard0-0
+mkdir c:\db2\data\shard0-1
+mkdir c:\db2\data\shard0-2
+
+ 각 창에 명령어를 하나씩 실행해야 함.
+mongod --shardsvr --replSet shard0 --port 27021 --bind_ip 0.0.0.0 --dbpath d:/yey/db2/data/shard0-0
+mongod --shardsvr --replSet shard0 --port 27022 --bind_ip localhost --dbpath /db2/data/shard0-1
+mongod --shardsvr --replSet shard0 --port 27023 --bind_ip localhost --dbpath /db2/data/shard0-2
+
+rs.initiate(
+{
+_id : "shard0",
+members: [
+{_id:0, host:"10.100.103.15:27021"},
+{_id:1, host:"10.100.103.19:27022"},
+{_id:2, host:"10.100.103.19:27023",arbiterOnly: true}
+]
+}
+)
+
+
+
+mongos --configdb config0/10.100.103.15:27018 --port 20000
+
+--------------------------------------------
+
+
+
+mongo --port 20000
+
+sh.addShard("shard0/localhost:27021")
+
+
+sh.enableSharding("car_accident")
+
+
+
+db.by_month.createIndex({county:1})
+sh.shardCollection("car_accident.by_month",{
+county:1
+})
+
+db.area.createIndex({county:1})
+sh.shardCollection("car_accident.area",{
+county:1
+})
+
+
+sh.enableSharding("test1234")
+
+
+for(var i = 1; i<10001; i++){
+db.by_month.insert({county:"부산",ename:i,sal:100})
+}
+
+
+
